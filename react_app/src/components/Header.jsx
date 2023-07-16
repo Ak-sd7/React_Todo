@@ -6,9 +6,10 @@ import axios from "axios"
 
 const Header = () => {
   // const {isAuthenticated} = useContext(Context)
-  const {isAuthenticated, setIsAuthenticated} = useContext(Context)
+  const {isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context)
 
   const logoutHandler = async()=>{
+    setLoading(true);
     try {
         await axios.get(`${server}/users/logout`, 
         {
@@ -17,11 +18,13 @@ const Header = () => {
       );
       toast.success("Logged Out Successfully");
       setIsAuthenticated(false);
+      setLoading(false);
     } catch (error) {
         // toast.error("error");
         console.log(error);
         toast.error(error.response.data.message);
         setIsAuthenticated(true);
+        setLoading(false);
     }
   }
   // if(isAuthenticated){
@@ -36,7 +39,7 @@ const Header = () => {
         <article>
             <Link to={"/"}>Home</Link>
             <Link to={"/profile"}>Profile</Link>
-            { isAuthenticated ? <button onClick={logoutHandler} className = "btn">LogOut</button> : <Link to={"/login"}>Login</Link> }
+            { isAuthenticated ? <button disabled={loading} onClick={logoutHandler} className = "btn">LogOut</button> : <Link to={"/login"}>Login</Link> }
             
         </article>
     </nav> 

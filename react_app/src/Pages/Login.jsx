@@ -8,9 +8,10 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {isAuthenticated, setIsAuthenticated} = useContext(Context)
+  const {isAuthenticated, setIsAuthenticated, loading, setLoading} = useContext(Context)
 
   const submitHandler = async(e)=>{
+    setLoading(true);
     try {
         e.preventDefault();
         const {data} = await axios.post(`${server}/users/login`, 
@@ -24,11 +25,13 @@ const Login = () => {
       );
       toast.success(data.message);
       setIsAuthenticated(true);
+      setLoading(false);
     } catch (error) {
         // toast.error("error");
         console.log(error);
         toast.error(error.response.data.message);
         setIsAuthenticated(false);
+        setLoading(false);
     }
   }
   if(isAuthenticated){
@@ -41,7 +44,7 @@ const Login = () => {
         <form onSubmit={submitHandler}>
             <input placeholder="Email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
             <input placeholder="Password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-            <button type="submit">Login</button>
+            <button disabled={loading} type="submit">Login</button>
             <h3>OR</h3>
             <Link to={"/register"} className="signup">Sign Up</Link>
         </form>

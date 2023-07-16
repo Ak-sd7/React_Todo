@@ -9,11 +9,12 @@ const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {isAuthenticated, setIsAuthenticated} = useContext(Context)
+  const {isAuthenticated, setIsAuthenticated, loading, setLoading} = useContext(Context)
 
   const submitHandler = async(e)=>{
+      setLoading(true);
+      e.preventDefault();
       try {
-        e.preventDefault();
       const {data} = await axios.post(`${server}/users/new`, 
             {name, email, password},
           {
@@ -25,11 +26,13 @@ const Register = () => {
         );
       toast.success(data.message);
       setIsAuthenticated(true);
+      setLoading(false);
       } catch (error) {
         // toast.error("error");
         console.log(error);
         toast.error(error.response.data.message);
         setIsAuthenticated(false);
+        setLoading(false);
       }
 
     }
@@ -43,7 +46,7 @@ const Register = () => {
             <input placeholder="Name" type="text" value={name} onChange={(e)=>setName(e.target.value)} required/>
             <input placeholder="Email" type="email" value={email} onChange={(e)=>setEmail(e.target.value)} required/>
             <input placeholder="Password" type="password" value={password} onChange={(e)=>setPassword(e.target.value)} required/>
-            <button type="submit">Sign Up</button>
+            <button disabled={loading} type="submit">Sign Up</button>
             <h3>OR</h3>
             <Link to="/login" className="signup">Login</Link>
         </form>
