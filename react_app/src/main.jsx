@@ -16,7 +16,8 @@ const AppWrapper = ()=>{
   const[user, setUser] = useState({});
 
   return(
-    <Context.Provider value={{
+    <Context.Provider 
+      value={{
         isAuthenticated, 
         setIsAuthenticated,
         loading, 

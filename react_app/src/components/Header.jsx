@@ -39,7 +39,7 @@ const Header = () => {
         <article>
             <Link to={"/"}>Home</Link>
             <Link to={"/profile"}>Profile</Link>
-            { isAuthenticated ? <button disabled={loading} onClick={logoutHandler} className = "btn">LogOut</button> : <Link to={"/login"}>Login</Link> }
+            { isAuthenticated ? (<button disabled={loading} onClick={logoutHandler} className = "btn">LogOut</button>) : (<Link to={"/login"}>Login</Link>) }
             
         </article>
     </nav> 

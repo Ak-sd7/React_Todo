@@ -11,22 +11,26 @@ import { Context, server } from "./main"
 
 function App() {
 
-  const [setUser, setIsAuthenticated] = useContext(Context);
+  const {setUser, setIsAuthenticated, setLoading} = useContext(Context);
 
   useEffect(()=>{
-    axios.get(`${server}/users/me`,
-    {
-      Credential: true
-    }).then(res => {
-        setIsAuthenticated(true);
+    setLoading(true);
+    axios
+    .get(`${server}/users/me`,{
+      withCredentials: true,
+    })
+    .then((res) => {
         setUser(res.data.user);
-      })
-      .catch((error)=>{
-        console.log(error);
+        setIsAuthenticated(true);
+        setLoading(false);
+    })
+    .catch((error)=>{
+        console.log(error.response.data.message);
         setUser({});
         setIsAuthenticated(false);
-      })
-  },)
+        setLoading(false);
+    })
+  },[])
 
   return ( 
    <Router>
