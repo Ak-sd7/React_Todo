@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <nav className="header">
         <div>
-            <h2>To Do</h2>
+            <h2><i>Task Manager..</i></h2>
         </div> 
         <article>
             <Link to={"/"}>Home</Link>
