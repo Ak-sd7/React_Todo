@@ -37,7 +37,7 @@ const Login = () => {
   if(isAuthenticated){
     return <Navigate to={"/"}/>
   }
-
+ 
   return (
     <div className="login">
       <section>

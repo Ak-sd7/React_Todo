@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <nav className="header">
         <div>
-            <h2><i>Task Manager..</i></h2>
+            <h1 style={{fontFamily: "Dancing Script", fontSize: "30px", color: "antiquewhite"}}>Tm..</h1>
         </div> 
         <article>
             <Link to={"/"}>Home</Link>

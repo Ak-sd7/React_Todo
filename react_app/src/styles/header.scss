@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400&display=swap');
 .header {
     background-color: $color3;
     display: flex;
@@ -7,9 +8,7 @@
     width: 100%;
     > div {
       h2 {
-        text-transform: uppercase;
         color: $color2;
-        font-weight: 400;
       }
     }
   
